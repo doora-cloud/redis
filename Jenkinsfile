@@ -8,9 +8,6 @@ pipeline {
     }
 
     environment {
-        REGISTRY_ORG = 'dooracloud'
-        REGISTRY_CRED_ID = 'docker-doora'
-
         IMAGE_NAME = "${env.REGISTRY_ORG}/redis:7"
     }
 
@@ -26,7 +23,7 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: env.REGISTRY_CRED_ID) {
+                    withDockerRegistry(url: env.REGISTRY_URL, credentialsId: env.REGISTRY_CRED_ID) {
                         sh "docker push ${env.IMAGE_NAME}"
                     }
                 }
