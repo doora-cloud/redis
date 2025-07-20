@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "${env.REGISTRY_ORG}/redis:7"
+        IMAGE_NAME = "${env.REGISTRY_ORG}/redis:8-alpine"
     }
 
     stages {
