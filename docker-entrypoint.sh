@@ -7,4 +7,15 @@ echo "✅ Secrets loaded"
 
 echo "🚀 Starting Redis..."
 
-exec docker-entrypoint.sh redis-server --save 20 1 --loglevel warning --requirepass $REDIS_PASS
+exec docker-entrypoint.sh redis-server --save 60 1000 \
+  --loglevel warning \
+  --requirepass ${REDIS_PASS} \
+  --maxmemory 512mb \
+  --maxmemory-policy allkeys-lru \
+  --appendonly yes \
+  --appendfsync everysec \
+  --no-appendfsync-on-rewrite yes \
+  --auto-aof-rewrite-percentage 100 \
+  --auto-aof-rewrite-min-size 64mb \
+  --tcp-keepalive 300 \
+  --activedefrag yes
